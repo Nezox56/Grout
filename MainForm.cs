@@ -18,7 +18,7 @@ namespace Grout
         public MainForm()
         {
             InitializeComponent();
-            CheckConnection(connectionMudDBTest);
+            CheckConnection(_mudDBTestString);
         }
 
         
