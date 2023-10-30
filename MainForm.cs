@@ -15,7 +15,7 @@ namespace Grout
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public  MainForm()
         {
             InitializeComponent();
             CheckConnection(connectionMudDBTest);
