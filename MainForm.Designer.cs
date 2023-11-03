@@ -128,6 +128,7 @@ namespace Grout
             this.dataGridViewGrout.Size = new System.Drawing.Size(756, 156);
             this.dataGridViewGrout.TabIndex = 4;
             this.dataGridViewGrout.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGrout_CellClick);
+            this.dataGridViewGrout.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGrout_CellContentDoubleClick);
             // 
             // panelStructure
             // 
@@ -186,6 +187,8 @@ namespace Grout
             this.dataGridViewStructure.RowTemplate.Height = 24;
             this.dataGridViewStructure.Size = new System.Drawing.Size(756, 186);
             this.dataGridViewStructure.TabIndex = 4;
+            this.dataGridViewStructure.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStructure_CellClick);
+            this.dataGridViewStructure.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStructure_CellContentDoubleClick);
             // 
             // MainForm
             // 

@@ -37,7 +37,11 @@ namespace Grout
         // Cобытие на выбранную ячейку в таблице Растворы
         private void dataGridViewGrout_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            dataGridViewGrout.ReadOnly = true;
+            dataGridViewGrout.BeginEdit(false);
+
             GetDataStructure(dataGridViewGrout, dataGridViewStructure);
+
         }
 
         // Cоздание столбцов в таблицах
@@ -127,6 +131,7 @@ namespace Grout
 
         }
 
+        // Проверка на лимит количества(%)
         public static decimal CheckValueStructure(DataGridView dgv)
         {
             decimal valueSumCheck = 0;
@@ -168,6 +173,40 @@ namespace Grout
             string queryString = $"DELETE Structure WHERE (Id = {idStructure})";
 
             DeleteData(queryString);
+        }
+
+        //Разрешение редактирования
+
+        private void dataGridViewGrout_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridViewGrout.IsCurrentCellDirty)
+            {
+                dataGridViewGrout.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+            else
+            {
+                dataGridViewGrout.ReadOnly = false;
+                dataGridViewGrout.BeginEdit(true);
+            }
+        }
+
+        private void dataGridViewStructure_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridViewStructure.IsCurrentCellDirty)
+            {
+                dataGridViewStructure.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+            else
+            {
+                dataGridViewStructure.ReadOnly = false;
+                dataGridViewStructure.BeginEdit(true);
+            }
+        }
+
+        private void dataGridViewStructure_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridViewStructure.ReadOnly = true;
+            dataGridViewStructure.BeginEdit(false);
         }
     }
 }
