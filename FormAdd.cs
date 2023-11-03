@@ -26,7 +26,7 @@ namespace Grout
         public static int tabControlIndex = 0;
         public static int IdGrout = 0;
 
-
+        // Сохранение нового раствора
         private void btnSaveGrout_Click(object sender, EventArgs e)
         {
             var parameters = new Dictionary<string, object>()
@@ -34,11 +34,14 @@ namespace Grout
                 {"Name", nameGrout.Text.ToString()},
                 {"Value", valueGrout.Text}
             };
-            AddData(connectionMudDBTest, "INSERT INTO Grout (Name, Value) VALUES (@Name, @Value);", parameters);
+
+            string queryString = "INSERT INTO Grout (Name, Value) VALUES (@Name, @Value);";
+            AddData(queryString, parameters);
 
             this.Close();
         }
 
+        // Сохранение нового элемента состава
         private void btnSaveStructure_Click(object sender, EventArgs e)
         {
             var parameters = new Dictionary<string, object>()
@@ -47,9 +50,11 @@ namespace Grout
                 {"Value", valueStructure.Text},
                 {"Id_grout", IdGrout}
             };
-            AddData(connectionMudDBTest, "INSERT INTO Structure (Name, Value, Id_grout) VALUES (@Name, @Value, @Id_grout);", parameters);
 
-            x = 0;
+            string queryString = "INSERT INTO Structure (Name, Value, Id_grout) VALUES (@Name, @Value, @Id_grout);";
+            AddData(queryString, parameters);
+
+            tabControlIndex = 0;
 
             this.Close();
         }

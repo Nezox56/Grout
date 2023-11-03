@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.btnSaveGrout = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelNameGrout = new System.Windows.Forms.Label();
+            this.labelValueGrout = new System.Windows.Forms.Label();
             this.nameGrout = new System.Windows.Forms.TextBox();
             this.valueGrout = new System.Windows.Forms.TextBox();
             this.valueStructure = new System.Windows.Forms.TextBox();
             this.nameStructure = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelValueStructure = new System.Windows.Forms.Label();
+            this.labelNameStructure = new System.Windows.Forms.Label();
             this.btnSaveStructure = new System.Windows.Forms.Button();
             this.AddStructure = new System.Windows.Forms.TabPage();
             this.AddGrout = new System.Windows.Forms.TabPage();
@@ -56,23 +56,23 @@
             this.btnSaveGrout.UseVisualStyleBackColor = true;
             this.btnSaveGrout.Click += new System.EventHandler(this.btnSaveGrout_Click);
             // 
-            // label1
+            // labelNameGrout
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(138, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Название раствора";
+            this.labelNameGrout.AutoSize = true;
+            this.labelNameGrout.Location = new System.Drawing.Point(6, 16);
+            this.labelNameGrout.Name = "labelNameGrout";
+            this.labelNameGrout.Size = new System.Drawing.Size(138, 16);
+            this.labelNameGrout.TabIndex = 1;
+            this.labelNameGrout.Text = "Название раствора";
             // 
-            // label2
+            // labelValueGrout
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Объем, м3";
+            this.labelValueGrout.AutoSize = true;
+            this.labelValueGrout.Location = new System.Drawing.Point(6, 44);
+            this.labelValueGrout.Name = "labelValueGrout";
+            this.labelValueGrout.Size = new System.Drawing.Size(73, 16);
+            this.labelValueGrout.TabIndex = 2;
+            this.labelValueGrout.Text = "Объем, м3";
             // 
             // nameGrout
             // 
@@ -102,23 +102,23 @@
             this.nameStructure.Size = new System.Drawing.Size(192, 22);
             this.nameStructure.TabIndex = 8;
             // 
-            // label3
+            // labelValueStructure
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 40);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 16);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Объем, м3";
+            this.labelValueStructure.AutoSize = true;
+            this.labelValueStructure.Location = new System.Drawing.Point(8, 40);
+            this.labelValueStructure.Name = "labelValueStructure";
+            this.labelValueStructure.Size = new System.Drawing.Size(73, 16);
+            this.labelValueStructure.TabIndex = 7;
+            this.labelValueStructure.Text = "Объем, м3";
             // 
-            // label4
+            // labelNameStructure
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 12);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(129, 16);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Название состава";
+            this.labelNameStructure.AutoSize = true;
+            this.labelNameStructure.Location = new System.Drawing.Point(8, 12);
+            this.labelNameStructure.Name = "labelNameStructure";
+            this.labelNameStructure.Size = new System.Drawing.Size(129, 16);
+            this.labelNameStructure.TabIndex = 6;
+            this.labelNameStructure.Text = "Название состава";
             // 
             // btnSaveStructure
             // 
@@ -134,8 +134,8 @@
             // 
             this.AddStructure.Controls.Add(this.valueStructure);
             this.AddStructure.Controls.Add(this.nameStructure);
-            this.AddStructure.Controls.Add(this.label3);
-            this.AddStructure.Controls.Add(this.label4);
+            this.AddStructure.Controls.Add(this.labelValueStructure);
+            this.AddStructure.Controls.Add(this.labelNameStructure);
             this.AddStructure.Controls.Add(this.btnSaveStructure);
             this.AddStructure.Location = new System.Drawing.Point(4, 5);
             this.AddStructure.Name = "AddStructure";
@@ -149,8 +149,8 @@
             // 
             this.AddGrout.Controls.Add(this.valueGrout);
             this.AddGrout.Controls.Add(this.nameGrout);
-            this.AddGrout.Controls.Add(this.label2);
-            this.AddGrout.Controls.Add(this.label1);
+            this.AddGrout.Controls.Add(this.labelValueGrout);
+            this.AddGrout.Controls.Add(this.labelNameGrout);
             this.AddGrout.Controls.Add(this.btnSaveGrout);
             this.AddGrout.Location = new System.Drawing.Point(4, 5);
             this.AddGrout.Name = "AddGrout";
@@ -195,15 +195,15 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelNameGrout;
         private System.Windows.Forms.Button btnSaveGrout;
         private System.Windows.Forms.TextBox valueGrout;
         private System.Windows.Forms.TextBox nameGrout;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelValueGrout;
         private System.Windows.Forms.TextBox valueStructure;
         private System.Windows.Forms.TextBox nameStructure;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelValueStructure;
+        private System.Windows.Forms.Label labelNameStructure;
         private System.Windows.Forms.Button btnSaveStructure;
         private System.Windows.Forms.TabPage AddStructure;
         private System.Windows.Forms.TabPage AddGrout;

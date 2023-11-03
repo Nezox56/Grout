@@ -15,7 +15,7 @@ namespace Grout
     {
         public const string connectionMudDBTest = "Server=(localdb)\\mssqllocaldb;Database=MudDBTest;Trusted_Connection=True;";
 
-        //проверка на существование БД
+        //Проверка на существование БД
         public static async void CheckConnection(string connectionString)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -83,8 +83,7 @@ namespace Grout
             }
         }
 
-
-        //получение данных Растворов
+        // Получение данных Растворов
         public static void GetDataGrout(DataGridView dgv)
         {
             try
@@ -113,11 +112,10 @@ namespace Grout
             }
         }
 
-        //получение данных Состава
+        // Получение данных Состава
         public static void GetDataStructure(DataGridView dgvGr, DataGridView dgvSt)
         {
-            string connectionString = "Server=(localdb)\\mssqllocaldb; Database=MudDBTest; Trusted_Connection=true;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionMudDBTest))
             {
                 dgvSt.Rows.Clear();
 
@@ -139,11 +137,10 @@ namespace Grout
             }
         }
 
-
-        //Добавление данных
-        public static void AddData(string connectionString, string query, Dictionary<string, object> parameters)
+        // Добавление данных
+        public static void AddData(string query, Dictionary<string, object> parameters)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionMudDBTest))
             {
                 var command = new SqlCommand(query, connection) { CommandType = CommandType.Text };
 
@@ -173,10 +170,10 @@ namespace Grout
             }
         }
 
-        //Удаление данных
-        public static void RemoveData(string connectionString, string query)
+        // Удаление данных
+        public static void RemoveData(string query)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionMudDBTest))
             {
                 var command = new SqlCommand(query, connection) { CommandType = CommandType.Text };
 

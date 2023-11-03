@@ -37,13 +37,13 @@ namespace Grout
             CreateCollums();
         }
 
-        //событие на выбранную ячейку в таблице Растворы
+        // Cобытие на выбранную ячейку в таблице Растворы
         private void dataGridViewGrout_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             GetDataStructure(dataGridViewGrout, dataGridViewStructure);
         }
 
-        // создание столбцов в таблицах
+        // Cоздание столбцов в таблицах
         private void CreateCollums()
         {
             dataGridViewGrout.Columns.Add("Id", "Id");
@@ -72,13 +72,13 @@ namespace Grout
         }
 
 
-        //строка добавления в таблицу Растворы
+        // Cтрока добавления в таблицу Растворы
         public static void ReadSingleRowGrout(DataGridView dgv, IDataRecord record)
         {
             dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetInt32(2) + " м3", RowState.ModifiedNew);
         }
 
-        //строка добавления в таблицу Состав
+        // Cтрока добавления в таблицу Состав
         public static void ReadSingleRowStructure(DataGridView dgv, IDataRecord record)
         {
             dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetDecimal(2), record.GetInt32(3), RowState.ModifiedNew);
@@ -117,6 +117,8 @@ namespace Grout
         // Добавить данные в таблицу Состав
         private void btnAddRowStructure_Click(object sender, EventArgs e)
         {
+            if (dataGridViewGrout.SelectedCells.Count == 0) return;
+
             tabControlIndex = 1;
             IdGrout = Convert.ToInt32(dataGridViewGrout.Rows[dataGridViewGrout.CurrentCell.RowIndex].Cells[0].Value.ToString());
 
