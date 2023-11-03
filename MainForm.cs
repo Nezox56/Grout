@@ -102,7 +102,7 @@ namespace Grout
             int rowIndex = dataGridViewGrout.CurrentCell.RowIndex;
             string idGrout = dataGridViewGrout.Rows[rowIndex].Cells["Id"].Value.ToString();
             string queryString = $"DELETE Grout WHERE (Id = {idGrout});";
-            RemoveData(queryString); 
+            DeleteData(queryString); 
         }  
 
         // Добавить данные в таблицу Состав
@@ -142,8 +142,8 @@ namespace Grout
             
             string idStructure = dataGridViewStructure.Rows[rowIndex].Cells["Id"].Value.ToString();
             string queryString = $"DELETE Structure WHERE (Id = {idStructure})";
-            
-            RemoveData(queryString);
+
+            DeleteData(queryString);
         }
     }
 }

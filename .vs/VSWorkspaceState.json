@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\bin\\Debug"
   ],
-  "SelectedNode": "\\Grout.sln",
+  "SelectedNode": "\\DataBaseRequest.cs",
   "PreviewInSolutionExplorer": false
 }

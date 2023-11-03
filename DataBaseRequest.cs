@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +24,7 @@ namespace Grout
                 try
                 {
                     connection.Open();
+                    connection.Close();
                 }
                 catch
                 {
@@ -68,7 +70,7 @@ namespace Grout
                 {
                     await connection.OpenAsync();
 
-                    string createTableQuery = "CREATE TABLE Structure ([Id] INT PRIMARY KEY IDENTITY, [Name] NVARCHAR(255) NOT NULL, [Value] NUMERIC(3,2) NOT NULL, [Id_grout] INT NOT NULL References Grout(Id)  ON DELETE CASCADE)";
+                    string createTableQuery = "CREATE TABLE Structure ([Id] INT PRIMARY KEY IDENTITY, [Name] NVARCHAR(255) NOT NULL, [Value] NUMERIC(5,2) NOT NULL, [Id_grout] INT NOT NULL References Grout(Id)  ON DELETE CASCADE)";
                     SqlCommand command = new SqlCommand
                     {
                         CommandText = createTableQuery,
@@ -104,6 +106,7 @@ namespace Grout
                         ReadSingleRowGrout(dgv, reader);
                     }
                     reader.Close();
+                    connection.Close();
                 }
             }
             catch (SqlException ex)
@@ -134,6 +137,7 @@ namespace Grout
                     ReadSingleRowStructure(dgvSt, reader);
                 }
                 reader.Close();
+                connection.Close();
             }
         }
 
@@ -171,11 +175,11 @@ namespace Grout
         }
 
         // Удаление данных
-        public static void RemoveData(string query)
+        public static void DeleteData(string queryString)
         {
             using (var connection = new SqlConnection(connectionMudDBTest))
             {
-                var command = new SqlCommand(query, connection) { CommandType = CommandType.Text };
+                var command = new SqlCommand(queryString, connection) { CommandType = CommandType.Text };
 
                 try
                 {
