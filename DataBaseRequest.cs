@@ -68,7 +68,7 @@ namespace Grout
                 {
                     await connection.OpenAsync();
 
-                    string createTableQuery = "CREATE TABLE Structure ([Id] INT PRIMARY KEY IDENTITY, [Name] NVARCHAR(255) NOT NULL, [Value] DECIMAL NOT NULL, [Id_grout] INT NOT NULL References Grout(Id)  ON DELETE CASCADE)";
+                    string createTableQuery = "CREATE TABLE Structure ([Id] INT PRIMARY KEY IDENTITY, [Name] NVARCHAR(255) NOT NULL, [Value] NUMERIC(3,2) NOT NULL, [Id_grout] INT NOT NULL References Grout(Id)  ON DELETE CASCADE)";
                     SqlCommand command = new SqlCommand
                     {
                         CommandText = createTableQuery,

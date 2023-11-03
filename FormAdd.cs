@@ -20,7 +20,7 @@ namespace Grout
         private void FormAdd_Load(object sender, EventArgs e)
         {
             if (tabControlIndex == 0) { tabControl.SelectTab(0); }
-            else { tabControl.SelectTab(1); }
+            else { tabControl.SelectTab(1); tabControlIndex = 0; }
         }
 
         public static int tabControlIndex = 0;
@@ -51,14 +51,12 @@ namespace Grout
             var parameters = new Dictionary<string, object>()
             {
                 {"Name", nameStructure.Text.ToString()},
-                {"Value", Convert.ToInt32(valueStructure.Text)},
+                {"Value", valueStructure.Text},
                 {"Id_grout", IdGrout}
             };
 
             string queryString = "INSERT INTO Structure (Name, Value, Id_grout) VALUES (@Name, @Value, @Id_grout);";
             AddData(queryString, parameters);
-
-            tabControlIndex = 0;
 
             this.Close();
         }

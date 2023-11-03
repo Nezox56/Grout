@@ -77,7 +77,7 @@ namespace Grout
         // Cтрока добавления в таблицу Состав
         public static void ReadSingleRowStructure(DataGridView dgv, IDataRecord record)
         {
-            dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetDecimal(2), record.GetInt32(3), RowState.Existed);
+            dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetDecimal(2) + " %", record.GetInt32(3), RowState.Existed);
         }
 
         // Обновление данных таблиц
@@ -122,9 +122,27 @@ namespace Grout
         {
             if (dataGridViewStructure.Rows.Count == 0 || dataGridViewStructure.SelectedCells.Count == 0) return;
 
+            // Получение индекса выбранной строки
             int rowIndex = dataGridViewStructure.CurrentCell.RowIndex;
-            string value = dataGridViewStructure.Rows[rowIndex].Cells["Id"].Value.ToString();
-            string queryString = $"DELETE Structure WHERE (Id = {value})";
+
+            // Проверка на кол-во записей Вода
+            int hasWater = 0;
+            foreach (DataGridViewRow row in dataGridViewStructure.Rows)
+            {
+                if (row.IsNewRow) continue;
+                string cellValue = row.Cells[1].Value as string; 
+                if (cellValue == "Вода")
+                {
+                    hasWater += 1; 
+                }
+            }
+
+            string valueStructure = dataGridViewStructure.Rows[rowIndex].Cells[1].Value.ToString();
+            if (valueStructure == "Вода" && hasWater == 1) return;
+            
+            string idStructure = dataGridViewStructure.Rows[rowIndex].Cells["Id"].Value.ToString();
+            string queryString = $"DELETE Structure WHERE (Id = {idStructure})";
+            
             RemoveData(queryString);
         }
     }

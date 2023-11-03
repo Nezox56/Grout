@@ -48,9 +48,10 @@
             // 
             // btnSaveGrout
             // 
-            this.btnSaveGrout.Location = new System.Drawing.Point(134, 90);
+            this.btnSaveGrout.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSaveGrout.Location = new System.Drawing.Point(3, 94);
             this.btnSaveGrout.Name = "btnSaveGrout";
-            this.btnSaveGrout.Size = new System.Drawing.Size(108, 40);
+            this.btnSaveGrout.Size = new System.Drawing.Size(364, 40);
             this.btnSaveGrout.TabIndex = 0;
             this.btnSaveGrout.Text = "Добавить";
             this.btnSaveGrout.UseVisualStyleBackColor = true;
@@ -76,7 +77,7 @@
             // 
             // nameGrout
             // 
-            this.nameGrout.Location = new System.Drawing.Point(161, 10);
+            this.nameGrout.Location = new System.Drawing.Point(150, 13);
             this.nameGrout.Name = "nameGrout";
             this.nameGrout.Size = new System.Drawing.Size(192, 22);
             this.nameGrout.TabIndex = 3;
@@ -91,7 +92,7 @@
             // 
             // valueStructure
             // 
-            this.valueStructure.Location = new System.Drawing.Point(97, 40);
+            this.valueStructure.Location = new System.Drawing.Point(117, 40);
             this.valueStructure.Name = "valueStructure";
             this.valueStructure.Size = new System.Drawing.Size(100, 22);
             this.valueStructure.TabIndex = 9;
@@ -99,7 +100,7 @@
             // 
             // nameStructure
             // 
-            this.nameStructure.Location = new System.Drawing.Point(163, 9);
+            this.nameStructure.Location = new System.Drawing.Point(93, 9);
             this.nameStructure.Name = "nameStructure";
             this.nameStructure.Size = new System.Drawing.Size(192, 22);
             this.nameStructure.TabIndex = 8;
@@ -109,24 +110,25 @@
             this.labelValueStructure.AutoSize = true;
             this.labelValueStructure.Location = new System.Drawing.Point(8, 40);
             this.labelValueStructure.Name = "labelValueStructure";
-            this.labelValueStructure.Size = new System.Drawing.Size(73, 16);
+            this.labelValueStructure.Size = new System.Drawing.Size(103, 16);
             this.labelValueStructure.TabIndex = 7;
-            this.labelValueStructure.Text = "Объем, м3";
+            this.labelValueStructure.Text = "Количество, %";
             // 
             // labelNameStructure
             // 
             this.labelNameStructure.AutoSize = true;
             this.labelNameStructure.Location = new System.Drawing.Point(8, 12);
             this.labelNameStructure.Name = "labelNameStructure";
-            this.labelNameStructure.Size = new System.Drawing.Size(129, 16);
+            this.labelNameStructure.Size = new System.Drawing.Size(79, 16);
             this.labelNameStructure.TabIndex = 6;
-            this.labelNameStructure.Text = "Название состава";
+            this.labelNameStructure.Text = "Компонент";
             // 
             // btnSaveStructure
             // 
-            this.btnSaveStructure.Location = new System.Drawing.Point(136, 86);
+            this.btnSaveStructure.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSaveStructure.Location = new System.Drawing.Point(3, 94);
             this.btnSaveStructure.Name = "btnSaveStructure";
-            this.btnSaveStructure.Size = new System.Drawing.Size(108, 40);
+            this.btnSaveStructure.Size = new System.Drawing.Size(364, 40);
             this.btnSaveStructure.TabIndex = 5;
             this.btnSaveStructure.Text = "Добавить";
             this.btnSaveStructure.UseVisualStyleBackColor = true;
@@ -142,7 +144,7 @@
             this.AddStructure.Location = new System.Drawing.Point(4, 5);
             this.AddStructure.Name = "AddStructure";
             this.AddStructure.Padding = new System.Windows.Forms.Padding(3);
-            this.AddStructure.Size = new System.Drawing.Size(370, 172);
+            this.AddStructure.Size = new System.Drawing.Size(370, 137);
             this.AddStructure.TabIndex = 1;
             this.AddStructure.Text = "AddStructure";
             this.AddStructure.UseVisualStyleBackColor = true;
@@ -157,7 +159,7 @@
             this.AddGrout.Location = new System.Drawing.Point(4, 5);
             this.AddGrout.Name = "AddGrout";
             this.AddGrout.Padding = new System.Windows.Forms.Padding(3);
-            this.AddGrout.Size = new System.Drawing.Size(370, 172);
+            this.AddGrout.Size = new System.Drawing.Size(370, 137);
             this.AddGrout.TabIndex = 0;
             this.AddGrout.Text = "AddGrout";
             this.AddGrout.UseVisualStyleBackColor = true;
@@ -173,7 +175,7 @@
             this.tabControl.Name = "tabControl";
             this.tabControl.Padding = new System.Drawing.Point(0, 0);
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(378, 181);
+            this.tabControl.Size = new System.Drawing.Size(378, 146);
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl.TabIndex = 0;
             this.tabControl.TabStop = false;
@@ -183,7 +185,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(378, 181);
+            this.ClientSize = new System.Drawing.Size(378, 146);
             this.Controls.Add(this.tabControl);
             this.MaximizeBox = false;
             this.Name = "FormAdd";
