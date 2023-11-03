@@ -9,3 +9,14 @@ E:\ProjectC#\Grout\obj\Debug\Grout.exe
 E:\ProjectC#\Grout\obj\Debug\Grout.pdb
 E:\ProjectC#\Grout\obj\Debug\Grout.MainForm.resources
 E:\ProjectC#\Grout\obj\Debug\Grout.FormAdd.resources
+E:\ProjectC#\Test\bin\Debug\Grout.exe.config
+E:\ProjectC#\Test\bin\Debug\Grout.exe
+E:\ProjectC#\Test\bin\Debug\Grout.pdb
+E:\ProjectC#\Test\obj\Debug\Grout.csproj.AssemblyReference.cache
+E:\ProjectC#\Test\obj\Debug\Grout.FormAdd.resources
+E:\ProjectC#\Test\obj\Debug\Grout.MainForm.resources
+E:\ProjectC#\Test\obj\Debug\Grout.Properties.Resources.resources
+E:\ProjectC#\Test\obj\Debug\Grout.csproj.GenerateResource.cache
+E:\ProjectC#\Test\obj\Debug\Grout.csproj.CoreCompileInputs.cache
+E:\ProjectC#\Test\obj\Debug\Grout.exe
+E:\ProjectC#\Test\obj\Debug\Grout.pdb

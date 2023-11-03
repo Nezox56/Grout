@@ -51,7 +51,7 @@ namespace Grout
             var parameters = new Dictionary<string, object>()
             {
                 {"Name", nameStructure.Text.ToString()},
-                {"Value", valueStructure.Text},
+                {"Value", Convert.ToInt32(valueStructure.Text)},
                 {"Id_grout", IdGrout}
             };
 
