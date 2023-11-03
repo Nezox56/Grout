@@ -8,3 +8,4 @@ E:\ProjectC#\Grout\obj\Debug\Grout.csproj.CoreCompileInputs.cache
 E:\ProjectC#\Grout\obj\Debug\Grout.exe
 E:\ProjectC#\Grout\obj\Debug\Grout.pdb
 E:\ProjectC#\Grout\obj\Debug\Grout.MainForm.resources
+E:\ProjectC#\Grout\obj\Debug\Grout.FormAdd.resources

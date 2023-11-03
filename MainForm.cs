@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static Grout.DataBaseRequest;
+using static Grout.FormAdd;
 
 namespace Grout
 {
@@ -97,12 +98,8 @@ namespace Grout
         // Добавить данные в таблицу Растворы
         private void btnAddRowGrout_Click(object sender, EventArgs e)
         {
-            var parameters = new Dictionary<string, object>()
-            {
-                {"Name", "раствор4"},
-                {"Value", 1}
-            };
-            AddData(connectionMudDBTest, "INSERT INTO Grout (Name, Value) VALUES (@Name, @Value);", parameters);
+            FormAdd formAdd = new FormAdd();
+            formAdd.Show();
         }
 
         // Удалить данные из таблицы Растворы
@@ -120,7 +117,12 @@ namespace Grout
         // Добавить данные в таблицу Состав
         private void btnAddRowStructure_Click(object sender, EventArgs e)
         {
-            var idValue = dataGridViewGrout.Rows[dataGridViewGrout.CurrentCell.RowIndex].Cells[0].Value.ToString();
+            x = 1;
+            xx = Convert.ToInt32(dataGridViewGrout.Rows[dataGridViewGrout.CurrentCell.RowIndex].Cells[0].Value.ToString());
+
+            FormAdd formAdd = new FormAdd();
+            formAdd.Show();
+            /*var idValue = dataGridViewGrout.Rows[dataGridViewGrout.CurrentCell.RowIndex].Cells[0].Value.ToString();
             string nValue = "Состав4";
             var parameters = new Dictionary<string, object>()
             {
@@ -128,7 +130,7 @@ namespace Grout
                 {"Value", 30.5},
                 {"Id_grout", idValue}
             };
-            AddData(connectionMudDBTest, "INSERT INTO Structure (Name, Value, Id_grout) VALUES (@Name, @Value, @Id_grout);", parameters);
+            AddData(connectionMudDBTest, "INSERT INTO Structure (Name, Value, Id_grout) VALUES (@Name, @Value, @Id_grout);", parameters);*/
         }
 
         // Удалить данные из таблицы Составы
