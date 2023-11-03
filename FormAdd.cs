@@ -25,7 +25,8 @@ namespace Grout
 
         public static int tabControlIndex = 0;
         public static int IdGrout = 0;
-
+        public static decimal meaningValue = 0;
+        public static decimal allowValue;
         // Сохранение нового раствора
         private void btnSaveGrout_Click(object sender, EventArgs e)
         {
@@ -48,6 +49,15 @@ namespace Grout
         {
             if (nameStructure.Text == "" || valueStructure.Text == "") return;
 
+            allowValue = 100 - meaningValue;
+
+            if (Convert.ToDecimal(valueStructure.Text) > allowValue)
+            {
+                MessageBox.Show("Введенное значение превышает допустимое количество(%)");
+                valueStructure.Text = allowValue.ToString();
+                return;
+            }
+
             var parameters = new Dictionary<string, object>()
             {
                 {"Name", nameStructure.Text.ToString()},
@@ -61,7 +71,7 @@ namespace Grout
             this.Close();
         }
 
-        // Запрет ввод текста
+        // Запрет на ввод текста в поле Объем
         private void valueGrout_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -70,7 +80,7 @@ namespace Grout
             }
         }
 
-        // Запрет ввод текста
+        // Запрет на вод текста в поле Количество
         private void valueStructure_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != 44)
@@ -78,5 +88,8 @@ namespace Grout
                 e.Handled = true;
             }
         }
+
+
+        
     }
 }

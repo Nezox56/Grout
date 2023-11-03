@@ -112,9 +112,33 @@ namespace Grout
 
             tabControlIndex = 1;
             IdGrout = Convert.ToInt32(dataGridViewGrout.Rows[dataGridViewGrout.CurrentCell.RowIndex].Cells[0].Value.ToString());
+            
+            var checkValue = CheckValueStructure(dataGridViewStructure);
+            if (checkValue >= 100)
+            {
+                MessageBox.Show("Достигнут лимит"); 
+                return;
+            }
+
+            meaningValue = checkValue;
 
             FormAdd formAdd = new FormAdd();
             formAdd.Show();
+
+        }
+
+        public static decimal CheckValueStructure(DataGridView dgv)
+        {
+            decimal valueSumCheck = 0;
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.IsNewRow) continue;
+                string cellValue = row.Cells[2].Value as string;
+                cellValue = cellValue.Replace(" %", string.Empty);
+                valueSumCheck += Convert.ToDecimal(cellValue);
+            }
+
+            return valueSumCheck;
         }
 
         // Удалить данные из таблицы Составы
