@@ -68,7 +68,7 @@ namespace Grout
                 {
                     await connection.OpenAsync();
 
-                    string createTableQuery = "CREATE TABLE Structure ([Id] INT PRIMARY KEY IDENTITY, [Name] NVARCHAR(255) NOT NULL, [Value] DECIMAL NOT NULL, [Id_grout] INT NOT NULL References Grout(Id))";
+                    string createTableQuery = "CREATE TABLE Structure ([Id] INT PRIMARY KEY IDENTITY, [Name] NVARCHAR(255) NOT NULL, [Value] DECIMAL NOT NULL, [Id_grout] INT NOT NULL References Grout(Id)  ON DELETE CASCADE)";
                     SqlCommand command = new SqlCommand
                     {
                         CommandText = createTableQuery,
@@ -138,6 +138,7 @@ namespace Grout
                 reader.Close();
             }
         }
+
 
         //Добавление данных
         public static void AddData(string connectionString, string query, Dictionary<string, object> parameters)

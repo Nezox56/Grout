@@ -71,37 +71,6 @@ namespace Grout
         }
 
 
-
-        
-
-        //получение данных Состава
-       /* private void GetDataStructure()
-        {
-            string connectionString = "Server=(localdb)\\mssqllocaldb; Database=MudDBTest; Trusted_Connection=true;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                dataGridViewStructure.Rows.Clear();
-
-                int rowIndex = dataGridViewGrout.CurrentCell.RowIndex;
-                int idGrout = Convert.ToInt32(dataGridViewGrout.Rows[rowIndex].Cells["Id"].Value.ToString());
-
-                string queryString = $"SELECT * FROM Structure Where Id_grout={idGrout}";
-
-                SqlCommand command = new SqlCommand(queryString, connection);
-
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    ReadSingleRowStructure(dataGridViewStructure, reader);
-                }
-                reader.Close();
-            }
-        }*/
-
-
-
         //строка добавления в таблицу Растворы
         public static void ReadSingleRowGrout(DataGridView dgv, IDataRecord record)
         {
@@ -142,8 +111,8 @@ namespace Grout
             if (dataGridViewGrout.Rows.Count == 0) return;
 
             int rowIndex = dataGridViewGrout.CurrentCell.RowIndex;
-            string value = dataGridViewGrout.Rows[rowIndex].Cells["Id"].Value.ToString();
-            RemoveData(connectionMudDBTest, $"DELETE Grout WHERE (Id = {value})");
+            string idGrout = dataGridViewGrout.Rows[rowIndex].Cells["Id"].Value.ToString();
+            RemoveData(connectionMudDBTest, $"DELETE Grout WHERE (Id = {idGrout});"); 
         }
 
         
