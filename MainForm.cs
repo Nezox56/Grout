@@ -19,21 +19,18 @@ namespace Grout
     enum RowState
     {
         Existed,
-        New,
         Modified,
-        ModifiedNew,
-        Deleted
     }
     public partial class MainForm : Form
     {
         public MainForm()
         {
+            CheckConnection(connectionMudDBTest);
             InitializeComponent();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            CheckConnection(connectionMudDBTest);
             CreateCollums();
         }
 
@@ -74,13 +71,13 @@ namespace Grout
         // Cтрока добавления в таблицу Растворы
         public static void ReadSingleRowGrout(DataGridView dgv, IDataRecord record)
         {
-            dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetInt32(2) + " м3", RowState.ModifiedNew);
+            dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetInt32(2) + " м3", RowState.Existed);
         }
 
         // Cтрока добавления в таблицу Состав
         public static void ReadSingleRowStructure(DataGridView dgv, IDataRecord record)
         {
-            dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetDecimal(2), record.GetInt32(3), RowState.ModifiedNew);
+            dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetDecimal(2), record.GetInt32(3), RowState.Existed);
         }
 
         // Обновление данных таблиц

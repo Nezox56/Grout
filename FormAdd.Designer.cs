@@ -76,7 +76,7 @@
             // 
             // nameGrout
             // 
-            this.nameGrout.Location = new System.Drawing.Point(161, 13);
+            this.nameGrout.Location = new System.Drawing.Point(161, 10);
             this.nameGrout.Name = "nameGrout";
             this.nameGrout.Size = new System.Drawing.Size(192, 22);
             this.nameGrout.TabIndex = 3;
@@ -87,6 +87,7 @@
             this.valueGrout.Name = "valueGrout";
             this.valueGrout.Size = new System.Drawing.Size(100, 22);
             this.valueGrout.TabIndex = 4;
+            this.valueGrout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.valueGrout_KeyPress);
             // 
             // valueStructure
             // 
@@ -94,6 +95,7 @@
             this.valueStructure.Name = "valueStructure";
             this.valueStructure.Size = new System.Drawing.Size(100, 22);
             this.valueStructure.TabIndex = 9;
+            this.valueStructure.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.valueStructure_KeyPress);
             // 
             // nameStructure
             // 
@@ -180,8 +182,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(378, 181);
             this.Controls.Add(this.tabControl);
+            this.MaximizeBox = false;
             this.Name = "FormAdd";
             this.Text = "Добавление данных";
             this.Load += new System.EventHandler(this.FormAdd_Load);

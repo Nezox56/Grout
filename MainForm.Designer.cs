@@ -118,6 +118,7 @@ namespace Grout
             this.dataGridViewGrout.AllowUserToAddRows = false;
             this.dataGridViewGrout.AllowUserToDeleteRows = false;
             this.dataGridViewGrout.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewGrout.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewGrout.Location = new System.Drawing.Point(3, 55);
             this.dataGridViewGrout.MultiSelect = false;
             this.dataGridViewGrout.Name = "dataGridViewGrout";
@@ -176,6 +177,7 @@ namespace Grout
             this.dataGridViewStructure.AllowUserToAddRows = false;
             this.dataGridViewStructure.AllowUserToDeleteRows = false;
             this.dataGridViewStructure.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStructure.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewStructure.Location = new System.Drawing.Point(4, 55);
             this.dataGridViewStructure.MultiSelect = false;
             this.dataGridViewStructure.Name = "dataGridViewStructure";

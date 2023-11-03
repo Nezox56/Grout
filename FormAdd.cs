@@ -19,7 +19,7 @@ namespace Grout
         }
         private void FormAdd_Load(object sender, EventArgs e)
         {
-            if(tabControlIndex == 0) { tabControl.SelectTab(0); }
+            if (tabControlIndex == 0) { tabControl.SelectTab(0); }
             else { tabControl.SelectTab(1); }
         }
 
@@ -29,6 +29,8 @@ namespace Grout
         // Сохранение нового раствора
         private void btnSaveGrout_Click(object sender, EventArgs e)
         {
+            if (nameGrout.Text == "" || valueGrout.Text == "") return;
+
             var parameters = new Dictionary<string, object>()
             {
                 {"Name", nameGrout.Text.ToString()},
@@ -44,6 +46,8 @@ namespace Grout
         // Сохранение нового элемента состава
         private void btnSaveStructure_Click(object sender, EventArgs e)
         {
+            if (nameStructure.Text == "" || valueStructure.Text == "") return;
+
             var parameters = new Dictionary<string, object>()
             {
                 {"Name", nameStructure.Text.ToString()},
@@ -59,5 +63,22 @@ namespace Grout
             this.Close();
         }
 
+        // Запрет ввод текста
+        private void valueGrout_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        // Запрет ввод текста
+        private void valueStructure_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
