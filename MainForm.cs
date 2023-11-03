@@ -117,20 +117,11 @@ namespace Grout
         // Добавить данные в таблицу Состав
         private void btnAddRowStructure_Click(object sender, EventArgs e)
         {
-            x = 1;
-            xx = Convert.ToInt32(dataGridViewGrout.Rows[dataGridViewGrout.CurrentCell.RowIndex].Cells[0].Value.ToString());
+            tabControlIndex = 1;
+            IdGrout = Convert.ToInt32(dataGridViewGrout.Rows[dataGridViewGrout.CurrentCell.RowIndex].Cells[0].Value.ToString());
 
             FormAdd formAdd = new FormAdd();
             formAdd.Show();
-            /*var idValue = dataGridViewGrout.Rows[dataGridViewGrout.CurrentCell.RowIndex].Cells[0].Value.ToString();
-            string nValue = "Состав4";
-            var parameters = new Dictionary<string, object>()
-            {
-                {"Name", nValue},
-                {"Value", 30.5},
-                {"Id_grout", idValue}
-            };
-            AddData(connectionMudDBTest, "INSERT INTO Structure (Name, Value, Id_grout) VALUES (@Name, @Value, @Id_grout);", parameters);*/
         }
 
         // Удалить данные из таблицы Составы

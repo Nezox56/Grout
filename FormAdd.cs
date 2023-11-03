@@ -19,12 +19,12 @@ namespace Grout
         }
         private void FormAdd_Load(object sender, EventArgs e)
         {
-            if(x == 0) { tabControl.SelectTab(0); }
+            if(tabControlIndex == 0) { tabControl.SelectTab(0); }
             else { tabControl.SelectTab(1); }
         }
 
-        public static int x = 0;
-        public static int xx = 0;
+        public static int tabControlIndex = 0;
+        public static int IdGrout = 0;
 
 
         private void btnSaveGrout_Click(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace Grout
             {
                 {"Name", nameStructure.Text.ToString()},
                 {"Value", valueStructure.Text},
-                {"Id_grout", xx}
+                {"Id_grout", IdGrout}
             };
             AddData(connectionMudDBTest, "INSERT INTO Structure (Name, Value, Id_grout) VALUES (@Name, @Value, @Id_grout);", parameters);
 
