@@ -83,6 +83,62 @@ namespace Grout
             }
         }
 
+
+        //получение данных Растворов
+        public static void GetDataGrout(DataGridView dgv)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionMudDBTest))
+                {
+                    dgv.Rows.Clear();
+
+                    string queryString = "SELECT * FROM Grout";
+
+                    SqlCommand command = new SqlCommand(queryString, connection);
+
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ReadSingleRowGrout(dgv, reader);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //получение данных Состава
+        public static void GetDataStructure(DataGridView dgvGr, DataGridView dgvSt)
+        {
+            string connectionString = "Server=(localdb)\\mssqllocaldb; Database=MudDBTest; Trusted_Connection=true;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                dgvSt.Rows.Clear();
+
+                int rowIndex = dgvGr.CurrentCell.RowIndex;
+                int idGrout = Convert.ToInt32(dgvGr.Rows[rowIndex].Cells["Id"].Value.ToString());
+
+                string queryString = $"SELECT * FROM Structure Where Id_grout={idGrout}";
+
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ReadSingleRowStructure(dgvSt, reader);
+                }
+                reader.Close();
+            }
+        }
+
         //Добавление данных
         public static void AddData(string connectionString, string query, Dictionary<string, object> parameters)
         {

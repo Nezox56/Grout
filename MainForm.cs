@@ -39,7 +39,7 @@ namespace Grout
         //событие на выбранную ячейку в таблице Растворы
         private void dataGridViewGrout_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            GetDataStructure();
+            GetDataStructure(dataGridViewGrout, dataGridViewStructure);
         }
 
         // создание столбцов в таблицах
@@ -72,33 +72,10 @@ namespace Grout
 
 
 
-        //получение данных Растворов
-        private void GetDataGrout()
-        {
-            string connectionString = "Server=(localdb)\\mssqllocaldb; Database=MudDBTest; Trusted_Connection=true;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                dataGridViewGrout.Rows.Clear();
-                
-                string queryString = "SELECT * FROM Grout";
-
-                SqlCommand command = new SqlCommand(queryString, connection);
-                
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    ReadSingleRowGrout(dataGridViewGrout, reader);
-                }
-                reader.Close();
-
-                GetDataStructure();
-            }
-        }
+        
 
         //получение данных Состава
-        private void GetDataStructure()
+       /* private void GetDataStructure()
         {
             string connectionString = "Server=(localdb)\\mssqllocaldb; Database=MudDBTest; Trusted_Connection=true;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -121,18 +98,18 @@ namespace Grout
                 }
                 reader.Close();
             }
-        }
+        }*/
 
 
 
         //строка добавления в таблицу Растворы
-        private void ReadSingleRowGrout(DataGridView dgv, IDataRecord record)
+        public static void ReadSingleRowGrout(DataGridView dgv, IDataRecord record)
         {
             dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetInt32(2) + " м3", RowState.ModifiedNew);
         }
 
         //строка добавления в таблицу Состав
-        private void ReadSingleRowStructure(DataGridView dgv, IDataRecord record)
+        public static void ReadSingleRowStructure(DataGridView dgv, IDataRecord record)
         {
             dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetDecimal(2), record.GetInt32(3), RowState.ModifiedNew);
         }
@@ -142,7 +119,8 @@ namespace Grout
         // Обновление данных таблиц
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            GetDataGrout();
+            GetDataGrout(dataGridViewGrout);
+            dataGridViewStructure.Rows.Clear();
         }
 
 
