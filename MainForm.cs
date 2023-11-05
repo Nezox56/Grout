@@ -73,13 +73,13 @@ namespace Grout
         }
 
         // Cтрока добавления в таблицу Растворы
-        public static void ReadSingleRowGrout(DataGridView dgv, IDataRecord record)
+        public static void AddSingleRowGrout(DataGridView dgv, IDataRecord record)
         {
             dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetInt32(2) + " м3", RowState.Existed);
         }
 
         // Cтрока добавления в таблицу Состав
-        public static void ReadSingleRowStructure(DataGridView dgv, IDataRecord record)
+        public static void AddSingleRowStructure(DataGridView dgv, IDataRecord record)
         {
             dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetDecimal(2) + " %", record.GetInt32(3), RowState.Existed);
         }

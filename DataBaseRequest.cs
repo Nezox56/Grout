@@ -103,7 +103,7 @@ namespace Grout
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        ReadSingleRowGrout(dgv, reader);
+                        AddSingleRowGrout(dgv, reader);
                     }
                     reader.Close();
                     connection.Close();
@@ -134,7 +134,7 @@ namespace Grout
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    ReadSingleRowStructure(dgvSt, reader);
+                    AddSingleRowStructure(dgvSt, reader);
                 }
                 reader.Close();
                 connection.Close();

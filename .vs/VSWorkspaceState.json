@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\bin\\Debug"
+    "\\bin",
+    "\\bin\\Debug",
+    "\\obj",
+    "\\obj\\Debug"
   ],
-  "SelectedNode": "\\DataBaseRequest.cs",
+  "SelectedNode": "\\MainForm.cs",
   "PreviewInSolutionExplorer": false
 }
