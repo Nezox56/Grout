@@ -35,8 +35,6 @@ namespace Grout
             CreateCollums();
         }
 
-        int previousRowIdx = 0;
-
         // Cоздание столбцов в таблицах
         private void CreateCollums()
         {
