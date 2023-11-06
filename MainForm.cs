@@ -277,34 +277,5 @@ namespace Grout
             dataGridViewStructure.Rows[rowIndex].Cells["IsNew"].Value = RowState.Modified;
         }
 
-        /*// //
-        private void dataGridViewGrout_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dataGridViewGrout.Rows.Count == 0) return;
-
-            string previousRowId = dataGridViewGrout["id", previousRowIdx].Value.ToString();
-
-            if (previousRowId == null || previousRowId == "") return;
-
-            decimal valueCheck = CheckValueStructure(dataGridViewStructure);
-
-            if (valueCheck < 100)
-            {
-                dataGridViewGrout.Rows[previousRowIdx].Cells[0].Selected = true;
-            }
-            else
-            {
-                var currentCell = (sender as DataGridView).CurrentCell;
-                string currentId = dataGridViewGrout["id", currentCell.RowIndex].Value.ToString();
-
-                if (currentId == null || currentId == "") return;
-
-                previousRowIdx = currentCell.RowIndex;
-                GetDataStructure(dataGridViewGrout, dataGridViewStructure);
-            }
-
-        }*/
-
-
     }
 }
