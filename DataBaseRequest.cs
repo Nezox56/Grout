@@ -85,6 +85,8 @@ namespace Grout
             }
         }
 
+
+
         // Получение данных Растворов
         public static void GetDataGrout(DataGridView dgv)
         {
@@ -141,12 +143,28 @@ namespace Grout
             }
         }
 
-        // Добавление данных
-        public static void AddData(string query, Dictionary<string, object> parameters)
+
+
+        // Запрос на добавление элемента Раствора
+        public static void AddGrout(Dictionary<string, object> parameters)
+        {
+            string queryString = "INSERT INTO Grout (Name, Value) VALUES (@Name, @Value);";
+            AddData(queryString, parameters);
+        }
+
+        // Запрос на добавление элемента Состава
+        public static void AddStructure(Dictionary<string, object> parameters)
+        {
+            string queryString = "INSERT INTO Structure (Name, Value, Id_grout) VALUES (@Name, @Value, @Id_grout);";
+            AddData(queryString, parameters);
+        }
+
+        // Добавление данных в БД
+        private static void AddData(string queryString, Dictionary<string, object> parameters)
         {
             using (var connection = new SqlConnection(connectionMudDBTest))
             {
-                var command = new SqlCommand(query, connection) { CommandType = CommandType.Text };
+                var command = new SqlCommand(queryString, connection) { CommandType = CommandType.Text };
 
                 foreach (var parameter in parameters)
                 {
@@ -174,8 +192,24 @@ namespace Grout
             }
         }
 
-        // Удаление данных
-        public static void DeleteData(string queryString)
+
+
+        // Запрос на удаление элемента Раствора
+        public static void DeleteGrout(int idGrout)
+        {
+            string queryString = $"DELETE Grout WHERE (Id = {idGrout});";
+            DeleteData(queryString);
+        }
+
+        // Запрос на удаление элемента Состава
+        public static void DeleteStructure(int idStructure)
+        {
+            string queryString = $"DELETE Structure WHERE (Id = {idStructure})";
+            DeleteData(queryString);
+        }
+
+        // Удаление данных в БД
+        private static void DeleteData(string queryString)
         {
             using (var connection = new SqlConnection(connectionMudDBTest))
             {
@@ -196,5 +230,50 @@ namespace Grout
                 }
             }
         }
+
+
+
+        // Запрос на удаление элемента Раствора
+        public static void UpdateGrout(Dictionary<string, object> parameters)
+        {
+            string queryString = "UPDATE Grout SET Name=@Name, Value=@Value WHERE Id=@Id";
+            UpdateData(queryString, parameters);
+        }
+
+        // Запрос на удаление элемента Состава
+        public static void UpdateStructure(Dictionary<string, object> parameters)
+        {
+            string queryString = "UPDATE Structure SET Name=@Name, Value=@Value WHERE Id=@Id";
+            UpdateData(queryString, parameters);
+        }
+
+        // Обновление данных в БД
+        private static void UpdateData(string queryString, Dictionary<string, object> parameters)
+        {
+            using (var connection = new SqlConnection(connectionMudDBTest))
+            {
+                var command = new SqlCommand(queryString, connection) { CommandType = CommandType.Text };
+
+                foreach (var parameter in parameters)
+                {
+                    command.Parameters.AddWithValue("@" + parameter.Key, parameter.Value);
+                }
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }

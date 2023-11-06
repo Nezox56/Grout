@@ -13,20 +13,22 @@ namespace Grout
 {
     public partial class FormAdd : Form
     {
+
+        public static int tabControlIndex = 0;
+        public static int IdGrout = 0;
+        public static decimal meaningValue = 0;
+        public static decimal allowValue;
         public FormAdd()
         {
             InitializeComponent();
         }
+
         private void FormAdd_Load(object sender, EventArgs e)
         {
             if (tabControlIndex == 0) { tabControl.SelectTab(0); }
             else { tabControl.SelectTab(1); tabControlIndex = 0; }
         }
 
-        public static int tabControlIndex = 0;
-        public static int IdGrout = 0;
-        public static decimal meaningValue = 0;
-        public static decimal allowValue;
         // Сохранение нового раствора
         private void btnSaveGrout_Click(object sender, EventArgs e)
         {
@@ -38,8 +40,7 @@ namespace Grout
                 {"Value", valueGrout.Text}
             };
 
-            string queryString = "INSERT INTO Grout (Name, Value) VALUES (@Name, @Value);";
-            AddData(queryString, parameters);
+            AddGrout(parameters);
 
             this.Close();
         }
@@ -48,6 +49,12 @@ namespace Grout
         private void btnSaveStructure_Click(object sender, EventArgs e)
         {
             if (nameStructure.Text == "" || valueStructure.Text == "") return;
+
+            if (nameStructure.Text.ToLower() != "вода" && Convert.ToDecimal(valueStructure.Text) == 100)
+            {
+                MessageBox.Show("100% может иметь только Вода!");
+                return;
+            }
 
             allowValue = 100 - meaningValue;
 
@@ -65,8 +72,7 @@ namespace Grout
                 {"Id_grout", IdGrout}
             };
 
-            string queryString = "INSERT INTO Structure (Name, Value, Id_grout) VALUES (@Name, @Value, @Id_grout);";
-            AddData(queryString, parameters);
+            AddStructure(parameters);
 
             this.Close();
         }

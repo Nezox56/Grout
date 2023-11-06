@@ -21,6 +21,7 @@ namespace Grout
         Existed,
         Modified,
     }
+
     public partial class MainForm : Form
     {
         public MainForm()
@@ -34,15 +35,7 @@ namespace Grout
             CreateCollums();
         }
 
-        // Cобытие на выбранную ячейку в таблице Растворы
-        private void dataGridViewGrout_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            dataGridViewGrout.ReadOnly = true;
-            dataGridViewGrout.BeginEdit(false);
-
-            GetDataStructure(dataGridViewGrout, dataGridViewStructure);
-
-        }
+        int previousRowIdx = 0;
 
         // Cоздание столбцов в таблицах
         private void CreateCollums()
@@ -72,6 +65,23 @@ namespace Grout
             dataGridViewStructure.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
+        // Проверка на лимит количества(%)
+        private decimal CheckValueStructure(DataGridView dgv)
+        {
+            if (dgv.Rows.Count == 0) return 0;
+
+            decimal valueSumCheck = 0;
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.IsNewRow) continue;
+                string cellValue = row.Cells[2].Value as string;
+                cellValue = cellValue.Replace(" %", string.Empty);
+                valueSumCheck += Convert.ToDecimal(cellValue);
+            }
+
+            return valueSumCheck;
+        }
+
         // Cтрока добавления в таблицу Растворы
         public static void AddSingleRowGrout(DataGridView dgv, IDataRecord record)
         {
@@ -84,10 +94,59 @@ namespace Grout
             dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetDecimal(2) + " %", record.GetInt32(3), RowState.Existed);
         }
 
+
+
+        // Сохранение изменений 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewGrout.Rows.Count == 0 || dataGridViewGrout.SelectedCells.Count == 0) return;
+
+            int rowIndexGrout = dataGridViewGrout.CurrentCell.RowIndex;
+            string valueGroutIsNew = dataGridViewGrout.Rows[rowIndexGrout].Cells["IsNew"].Value.ToString();
+
+            if (valueGroutIsNew.Equals(RowState.Modified.ToString()))
+            {
+                int id = Convert.ToInt32(dataGridViewGrout.Rows[rowIndexGrout].Cells["Id"].Value.ToString());
+                string name = dataGridViewGrout.Rows[rowIndexGrout].Cells["Name"].Value.ToString();
+                int value = Convert.ToInt32(dataGridViewGrout.Rows[rowIndexGrout].Cells["Value"].Value.ToString().Replace(" м3", string.Empty)); ;
+
+                var parameters = new Dictionary<string, object>()
+                {
+                    {"Id", id},
+                    {"Name", name},
+                    {"Value", value}
+                };
+
+                UpdateGrout(parameters);
+                return;
+            }
+
+            int rowIndexStructure = dataGridViewStructure.CurrentCell.RowIndex;
+            string valueStructureIsNew = dataGridViewStructure.Rows[rowIndexStructure].Cells["IsNew"].Value.ToString();
+
+            if (valueStructureIsNew.Equals(RowState.Modified.ToString()))
+            {
+                int id = Convert.ToInt32(dataGridViewStructure.Rows[rowIndexStructure].Cells["Id"].Value.ToString());
+                string name = dataGridViewStructure.Rows[rowIndexStructure].Cells["Name"].Value.ToString();
+                decimal value = Convert.ToDecimal(dataGridViewStructure.Rows[rowIndexStructure].Cells["Value"].Value.ToString().Replace(" %", string.Empty)); ;
+
+                var parameters = new Dictionary<string, object>()
+                {
+                    {"Id", id},
+                    {"Name", name},
+                    {"Value", value}
+                };
+
+                UpdateStructure(parameters);
+                return;
+            }
+        }
+
         // Обновление данных таблиц
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             GetDataGrout(dataGridViewGrout);
+            dataGridViewGrout.ClearSelection();
             dataGridViewStructure.Rows.Clear();
         }
 
@@ -104,9 +163,8 @@ namespace Grout
             if (dataGridViewGrout.Rows.Count == 0 || dataGridViewGrout.SelectedCells.Count == 0) return;
 
             int rowIndex = dataGridViewGrout.CurrentCell.RowIndex;
-            string idGrout = dataGridViewGrout.Rows[rowIndex].Cells["Id"].Value.ToString();
-            string queryString = $"DELETE Grout WHERE (Id = {idGrout});";
-            DeleteData(queryString); 
+            int idGrout = Convert.ToInt32(dataGridViewGrout.Rows[rowIndex].Cells["Id"].Value.ToString());
+            DeleteGrout(idGrout); 
         }  
 
         // Добавить данные в таблицу Состав
@@ -117,7 +175,7 @@ namespace Grout
             tabControlIndex = 1;
             IdGrout = Convert.ToInt32(dataGridViewGrout.Rows[dataGridViewGrout.CurrentCell.RowIndex].Cells[0].Value.ToString());
             
-            var checkValue = CheckValueStructure(dataGridViewStructure);
+            decimal checkValue = CheckValueStructure(dataGridViewStructure);
             if (checkValue >= 100)
             {
                 MessageBox.Show("Достигнут лимит"); 
@@ -129,21 +187,6 @@ namespace Grout
             FormAdd formAdd = new FormAdd();
             formAdd.Show();
 
-        }
-
-        // Проверка на лимит количества(%)
-        public static decimal CheckValueStructure(DataGridView dgv)
-        {
-            decimal valueSumCheck = 0;
-            foreach (DataGridViewRow row in dgv.Rows)
-            {
-                if (row.IsNewRow) continue;
-                string cellValue = row.Cells[2].Value as string;
-                cellValue = cellValue.Replace(" %", string.Empty);
-                valueSumCheck += Convert.ToDecimal(cellValue);
-            }
-
-            return valueSumCheck;
         }
 
         // Удалить данные из таблицы Составы
@@ -160,7 +203,7 @@ namespace Grout
             {
                 if (row.IsNewRow) continue;
                 string cellValue = row.Cells[1].Value as string; 
-                if (cellValue == "Вода")
+                if (cellValue.ToLower() == "вода")
                 {
                     hasWater += 1; 
                 }
@@ -169,14 +212,23 @@ namespace Grout
             string valueStructure = dataGridViewStructure.Rows[rowIndex].Cells[1].Value.ToString();
             if (valueStructure == "Вода" && hasWater == 1) return;
             
-            string idStructure = dataGridViewStructure.Rows[rowIndex].Cells["Id"].Value.ToString();
-            string queryString = $"DELETE Structure WHERE (Id = {idStructure})";
-
-            DeleteData(queryString);
+            int idStructure = Convert.ToInt32(dataGridViewStructure.Rows[rowIndex].Cells["Id"].Value.ToString());
+            DeleteStructure(idStructure);
         }
 
-        //Разрешение редактирования
 
+
+        // Cобытие на выбранную ячейку в таблице Растворы
+        private void dataGridViewGrout_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridViewGrout.ReadOnly = true;
+            dataGridViewGrout.BeginEdit(false);
+
+            GetDataStructure(dataGridViewGrout, dataGridViewStructure);
+
+        }
+
+        //Разрешение редактирования ячейки Раствора при дабл-клик
         private void dataGridViewGrout_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridViewGrout.IsCurrentCellDirty)
@@ -190,6 +242,7 @@ namespace Grout
             }
         }
 
+        //Разрешение редактирования ячейки Состава при дабл-клик
         private void dataGridViewStructure_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridViewStructure.IsCurrentCellDirty)
@@ -203,10 +256,55 @@ namespace Grout
             }
         }
 
+        // Cобытие на выбранную ячейку в таблице Состав
         private void dataGridViewStructure_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dataGridViewStructure.ReadOnly = true;
             dataGridViewStructure.BeginEdit(false);
         }
+
+        // Событие при изменении события ячейки Раствора
+        private void dataGridViewGrout_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowIndex = dataGridViewGrout.CurrentCell.RowIndex;
+            dataGridViewGrout.Rows[rowIndex].Cells["IsNew"].Value = RowState.Modified;
+        }
+
+        // Событие при изменении события ячейки Состава
+        private void dataGridViewStructure_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowIndex = dataGridViewStructure.CurrentCell.RowIndex;
+            dataGridViewStructure.Rows[rowIndex].Cells["IsNew"].Value = RowState.Modified;
+        }
+
+        /*// //
+        private void dataGridViewGrout_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewGrout.Rows.Count == 0) return;
+
+            string previousRowId = dataGridViewGrout["id", previousRowIdx].Value.ToString();
+
+            if (previousRowId == null || previousRowId == "") return;
+
+            decimal valueCheck = CheckValueStructure(dataGridViewStructure);
+
+            if (valueCheck < 100)
+            {
+                dataGridViewGrout.Rows[previousRowIdx].Cells[0].Selected = true;
+            }
+            else
+            {
+                var currentCell = (sender as DataGridView).CurrentCell;
+                string currentId = dataGridViewGrout["id", currentCell.RowIndex].Value.ToString();
+
+                if (currentId == null || currentId == "") return;
+
+                previousRowIdx = currentCell.RowIndex;
+                GetDataStructure(dataGridViewGrout, dataGridViewStructure);
+            }
+
+        }*/
+
+
     }
 }

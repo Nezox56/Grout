@@ -69,6 +69,7 @@ namespace Grout
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // panelGrout
             // 
@@ -118,17 +119,17 @@ namespace Grout
             this.dataGridViewGrout.AllowUserToAddRows = false;
             this.dataGridViewGrout.AllowUserToDeleteRows = false;
             this.dataGridViewGrout.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewGrout.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewGrout.Location = new System.Drawing.Point(3, 55);
             this.dataGridViewGrout.MultiSelect = false;
             this.dataGridViewGrout.Name = "dataGridViewGrout";
             this.dataGridViewGrout.ReadOnly = true;
             this.dataGridViewGrout.RowHeadersWidth = 51;
             this.dataGridViewGrout.RowTemplate.Height = 24;
-            this.dataGridViewGrout.Size = new System.Drawing.Size(756, 156);
+            this.dataGridViewGrout.Size = new System.Drawing.Size(756, 160);
             this.dataGridViewGrout.TabIndex = 4;
             this.dataGridViewGrout.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGrout_CellClick);
             this.dataGridViewGrout.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGrout_CellContentDoubleClick);
+            this.dataGridViewGrout.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGrout_CellValueChanged);
             // 
             // panelStructure
             // 
@@ -189,6 +190,7 @@ namespace Grout
             this.dataGridViewStructure.TabIndex = 4;
             this.dataGridViewStructure.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStructure_CellClick);
             this.dataGridViewStructure.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStructure_CellContentDoubleClick);
+            this.dataGridViewStructure.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStructure_CellValueChanged);
             // 
             // MainForm
             // 
