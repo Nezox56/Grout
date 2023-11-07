@@ -80,19 +80,22 @@ namespace Grout
             return valueSumCheck;
         }
 
-        // Cтрока добавления в таблицу Растворы
-        public static void AddSingleRowGrout(DataGridView dgv, IDataRecord record)
+
+
+        // Обновление данных таблиц
+        private void btnRefresh_Click(object sender, EventArgs e)
         {
-            dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetInt32(2) + " м3", RowState.Existed);
+            var listGrout = GetDataGrout();
+
+            dataGridViewGrout.Rows.Clear();
+            dataGridViewGrout.ClearSelection();
+            dataGridViewStructure.Rows.Clear();
+
+            foreach (var cell in listGrout)
+            {
+                dataGridViewGrout.Rows.Add(cell.id, cell.name, cell.value + " м3", RowState.Existed);
+            }
         }
-
-        // Cтрока добавления в таблицу Состав
-        public static void AddSingleRowStructure(DataGridView dgv, IDataRecord record)
-        {
-            dgv.Rows.Add(record.GetInt32(0), record.GetString(1), record.GetDecimal(2) + " %", record.GetInt32(3), RowState.Existed);
-        }
-
-
 
         // Сохранение изменений 
         private void btnSave_Click(object sender, EventArgs e)
@@ -139,15 +142,7 @@ namespace Grout
                 return;
             }
         }
-
-        // Обновление данных таблиц
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            GetDataGrout(dataGridViewGrout);
-            dataGridViewGrout.ClearSelection();
-            dataGridViewStructure.Rows.Clear();
-        }
-
+        
         // Добавить данные в таблицу Растворы
         private void btnAddRowGrout_Click(object sender, EventArgs e)
         {
@@ -222,8 +217,17 @@ namespace Grout
             dataGridViewGrout.ReadOnly = true;
             dataGridViewGrout.BeginEdit(false);
 
-            GetDataStructure(dataGridViewGrout, dataGridViewStructure);
+            dataGridViewStructure.Rows.Clear();
 
+            int rowIndex = dataGridViewGrout.CurrentCell.RowIndex;
+            int idGrout = Convert.ToInt32(dataGridViewGrout.Rows[rowIndex].Cells["Id"].Value.ToString());
+
+            var listStructure = GetDataStructure(idGrout);
+
+            foreach (var cell in listStructure)
+            {
+                dataGridViewStructure.Rows.Add(cell.id, cell.name, cell.value + " %", cell.id_grout, RowState.Existed);
+            }
         }
 
         //Разрешение редактирования ячейки Раствора при дабл-клик

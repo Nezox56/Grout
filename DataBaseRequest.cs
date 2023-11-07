@@ -4,12 +4,26 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Grout.MainForm;
 
 namespace Grout
 {
     internal class DataBaseRequest
     {
+        public struct Grout
+        {
+            public int id;
+            public string name;
+            public int value;
+        }
+
+        public struct GroutContent
+        {
+            public int id;
+            public string name;
+            public decimal value;
+            public int id_grout;
+        }
+
         public const string connectionMudDBTest = "Server=(localdb)\\mssqllocaldb;Database=MudDBTest;Trusted_Connection=True;";
 
         //Проверка на существование БД
@@ -84,14 +98,13 @@ namespace Grout
 
 
         // Получение данных Растворов
-        public static void GetDataGrout(DataGridView dgv)
+        public static List<Grout> GetDataGrout()
         {
+            var listGrout = new List <Grout>();
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionMudDBTest))
                 {
-                    dgv.Rows.Clear();
-
                     string queryString = "SELECT * FROM Grout";
 
                     SqlCommand command = new SqlCommand(queryString, connection);
@@ -101,41 +114,66 @@ namespace Grout
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        AddSingleRowGrout(dgv, reader);
+                        Grout structure = new Grout
+                        {
+                            id = reader.GetInt32(0),
+                            name = reader.GetString(1),
+                            value = reader.GetInt32(2)
+                        };
+
+                        listGrout.Add(structure);
                     }
+
                     reader.Close();
                     connection.Close();
+
+                    return listGrout;
                 }
             }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
+                return null;
             }
         }
 
         // Получение данных Состава
-        public static void GetDataStructure(DataGridView dgvGr, DataGridView dgvSt)
+        public static List<GroutContent> GetDataStructure(int idGrout)
         {
-            using (SqlConnection connection = new SqlConnection(connectionMudDBTest))
+            var listStructure = new List<GroutContent>();
+            try
             {
-                dgvSt.Rows.Clear();
-
-                int rowIndex = dgvGr.CurrentCell.RowIndex;
-                int idGrout = Convert.ToInt32(dgvGr.Rows[rowIndex].Cells["Id"].Value.ToString());
-
-                string queryString = $"SELECT * FROM Structure Where Id_grout={idGrout}";
-
-                SqlCommand command = new SqlCommand(queryString, connection);
-
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                using (SqlConnection connection = new SqlConnection(connectionMudDBTest))
                 {
-                    AddSingleRowStructure(dgvSt, reader);
+                    string queryString = $"SELECT * FROM Structure Where Id_grout={idGrout}";
+
+                    SqlCommand command = new SqlCommand(queryString, connection);
+
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        GroutContent structure = new GroutContent
+                        {
+                            id = reader.GetInt32(0),
+                            name = reader.GetString(1),
+                            value = reader.GetDecimal(2),
+                            id_grout = idGrout
+                        };
+
+                        listStructure.Add(structure);
+                    }
+                    reader.Close();
+                    connection.Close();
+
+                    return listStructure;
                 }
-                reader.Close();
-                connection.Close();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
             }
         }
 
